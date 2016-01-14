@@ -1,0 +1,54 @@
+﻿{
+    "_removeTags": [
+        "script",
+        "style",
+        "#comment"
+    ],
+    "title": "//article[@id='ocpArticleContent']/h1[1]",
+    "abstract": "//section[@class='ocpIntroduction']",
+    "sections": {
+        "_xpath": "//article[@id='ocpArticleContent']/section[@class='ocpSection']",
+        "title": ".//h2",
+        "text": {
+            "paragraphs": ".//p",
+            "orderedLists": {
+                "_xpath": ".//ol",
+                "title": {
+                    "_xpath": ".",
+                    "_transformations": [
+                        {
+                            "_type": "ListTitleTransformation",
+                            "_maxStepsUpward": 3,
+                            "_maxTitleLength": 200
+                        }
+                    ]
+                },
+                "items": "./li"
+            },
+            "unorderedLists": {
+                "_xpath": ".//ul",
+                "title": {
+                    "_xpath": ".",
+                    "_transformations": [
+                        {
+                            "_type": "ListTitleTransformation",
+                            "_maxStepsUpward": 3,
+                            "_maxTitleLength": 200
+                        }
+                    ]
+                },
+                "items": "./li"
+            }
+        }
+    },
+    "versions": {
+        "_xpath": "//p[@class='ocAppliesToSection']/text()[1]",
+        "_transformations": [
+            {
+                "_type": "SplitTransformation",
+                "_separator": ",",
+                "_trim": true
+            }
+        ]
+    }
+}

@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenScraping", "OpenScraping\OpenScraping.csproj", "{4579ED3D-E3AA-44B3-8933-610C46EC213A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenScraping.Tests", "OpenScraping.Tests\OpenScraping.Tests.csproj", "{F9966820-F302-4FFD-BFAF-E16026D6B77F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EB0E302D-8480-4E95-B381-6D229C38AA72}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Nunit|Any CPU = Nunit|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4579ED3D-E3AA-44B3-8933-610C46EC213A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4579ED3D-E3AA-44B3-8933-610C46EC213A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4579ED3D-E3AA-44B3-8933-610C46EC213A}.Nunit|Any CPU.ActiveCfg = Nunit|Any CPU
+		{4579ED3D-E3AA-44B3-8933-610C46EC213A}.Nunit|Any CPU.Build.0 = Nunit|Any CPU
+		{4579ED3D-E3AA-44B3-8933-610C46EC213A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4579ED3D-E3AA-44B3-8933-610C46EC213A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9966820-F302-4FFD-BFAF-E16026D6B77F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9966820-F302-4FFD-BFAF-E16026D6B77F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9966820-F302-4FFD-BFAF-E16026D6B77F}.Nunit|Any CPU.ActiveCfg = Nunit|Any CPU
+		{F9966820-F302-4FFD-BFAF-E16026D6B77F}.Nunit|Any CPU.Build.0 = Nunit|Any CPU
+		{F9966820-F302-4FFD-BFAF-E16026D6B77F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9966820-F302-4FFD-BFAF-E16026D6B77F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
