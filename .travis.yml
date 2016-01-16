@@ -4,6 +4,6 @@ install:
   - nuget restore OpenScraping.sln
   - nuget install NUnit.Runners -Version 3.0.1 -OutputDirectory testrunner
 script:
-  - xbuild /p:Configuration=Nunit /p:TargetFrameworkVersion="v4.5" OpenScraping.sln
+  - xbuild /p:Configuration=Nunit-Net45 /p:TargetFrameworkVersion="v4.5" OpenScraping.sln
   - cd OpenScraping.Tests
   - mono ../testrunner/NUnit.Console.3.0.1/tools/nunit3-console.exe ./bin/Nunit/OpenScraping.Tests.dll
