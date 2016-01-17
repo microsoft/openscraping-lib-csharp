@@ -63,8 +63,6 @@ Article title
 }
 ```
 
-You can find more complex examples in the [unit tests](https://github.com/Microsoft/openscraping-lib-csharp/blob/documentation-nuget/OpenScraping.Tests/StructuredDataExtractionTests.cs).
-
 ## Documentation TODO
-* More examples in README
+* Add more examples in README. For now you can find more complex examples in the [unit tests](https://github.com/Microsoft/openscraping-lib-csharp/blob/documentation-nuget/OpenScraping.Tests/StructuredDataExtractionTests.cs).
 * Modify MultiExtractor and document it
