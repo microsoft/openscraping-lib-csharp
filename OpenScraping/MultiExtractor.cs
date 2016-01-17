@@ -26,7 +26,7 @@ namespace OpenScraping
             {
                 foreach (var file in files)
                 {
-                    var config = StructuredDataConfig.Parse(file);
+                    var config = StructuredDataConfig.ParseJsonFile(file);
 
                     if (config.UrlPatterns != null && config.UrlPatterns.Count > 0)
                     {

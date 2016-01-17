@@ -37,7 +37,7 @@ namespace Microsoft.Search.StructuredDataExtraction.Tests
         public void MicrosoftAnswersExtractionTest()
         {
             var configPath = "answers.microsoft.com.json";
-            var config = StructuredDataConfig.Parse(configPath);
+            var config = StructuredDataConfig.ParseJsonFile(configPath);
             var extractor = new StructuredDataExtractor(config);
             var result = extractor.Extract(File.ReadAllText("answers.microsoft.com.html"));
             var json = JsonConvert.SerializeObject(result, Formatting.Indented);
@@ -94,7 +94,7 @@ namespace Microsoft.Search.StructuredDataExtraction.Tests
         public void OfficeSupportExtractionTest()
         {
             var configPath = "support.office.com.json";
-            var config = StructuredDataConfig.Parse(configPath);
+            var config = StructuredDataConfig.ParseJsonFile(configPath);
             var extractor = new StructuredDataExtractor(config);
             var result = extractor.Extract(File.ReadAllText("support.office.com.html"));
             var json = JsonConvert.SerializeObject(result, Formatting.Indented);
@@ -181,7 +181,7 @@ namespace Microsoft.Search.StructuredDataExtraction.Tests
         public void StackExchangeEx1ExtractionTest()
         {
             var configPath = "stackexchange.com.json";
-            var config = StructuredDataConfig.Parse(configPath);
+            var config = StructuredDataConfig.ParseJsonFile(configPath);
             var extractor = new StructuredDataExtractor(config);
             var result = extractor.Extract(File.ReadAllText("stackoverflow.com.example1.html"));
             var json = JsonConvert.SerializeObject(result, Formatting.Indented);
@@ -238,7 +238,7 @@ namespace Microsoft.Search.StructuredDataExtraction.Tests
         public void StackExchangeEx2ExtractionTest()
         {
             var configPath = "stackexchange.com.json";
-            var config = StructuredDataConfig.Parse(configPath);
+            var config = StructuredDataConfig.ParseJsonFile(configPath);
             var extractor = new StructuredDataExtractor(config);
             var result = extractor.Extract(File.ReadAllText("stackoverflow.com.example2.html"));
             var json = JsonConvert.SerializeObject(result, Formatting.Indented);
@@ -295,7 +295,7 @@ namespace Microsoft.Search.StructuredDataExtraction.Tests
         public void QuoraExtractionTest()
         {
             var configPath = "quora.com.json";
-            var config = StructuredDataConfig.Parse(configPath);
+            var config = StructuredDataConfig.ParseJsonFile(configPath);
             var extractor = new StructuredDataExtractor(config);
             var result = extractor.Extract(File.ReadAllText("quora.com.html"));
             var json = JsonConvert.SerializeObject(result, Formatting.Indented);
@@ -352,7 +352,7 @@ namespace Microsoft.Search.StructuredDataExtraction.Tests
         public void QuoraWithWikiExtractionTest()
         {
             var configPath = "quora.com.json";
-            var config = StructuredDataConfig.Parse(configPath);
+            var config = StructuredDataConfig.ParseJsonFile(configPath);
             var extractor = new StructuredDataExtractor(config);
             var result = extractor.Extract(File.ReadAllText("quora.com.withwiki.html"));
             var json = JsonConvert.SerializeObject(result, Formatting.Indented);

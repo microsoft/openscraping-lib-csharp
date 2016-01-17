@@ -13,10 +13,15 @@ namespace OpenScraping.Config
 
     public static class StructuredDataConfig
     {
-        public static ConfigSection Parse(string configPath)
+        public static ConfigSection ParseJsonFile(string configPath)
         {
-            var rawConfig = File.ReadAllText(configPath, Encoding.UTF8);
-            var parsedJson = (JObject)JsonConvert.DeserializeObject(rawConfig);
+            var json = File.ReadAllText(configPath, Encoding.UTF8);
+            return ParseJsonString(json);
+        }
+
+        public static ConfigSection ParseJsonString(string json)
+        {
+            var parsedJson = (JObject)JsonConvert.DeserializeObject(json);
 
             var rootSection = new ConfigSection();
             ParseSection(parsedJson, rootSection);
