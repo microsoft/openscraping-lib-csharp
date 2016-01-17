@@ -92,7 +92,7 @@
     <Compile Include="Transformations\ITransformationFromContainer.cs" />
     <Compile Include="Transformations\ITransformationFromHtml.cs" />
     <Compile Include="Transformations\ListTitleTransformation.cs" />
-    <Compile Include="Transformations\RemoveExtraSpacesTransformation.cs" />
+    <Compile Include="Transformations\RemoveExtraWhitespaceTransformation.cs" />
     <Compile Include="Transformations\SplitTransformation.cs" />
     <Compile Include="Transformations\TotalTextLengthAboveListTransformation.cs" />
   </ItemGroup>

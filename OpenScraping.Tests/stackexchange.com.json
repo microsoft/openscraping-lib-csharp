@@ -16,7 +16,7 @@
         "title": "(.//*[@itemprop='name'])[1]",
         "content": {
             "_xpath": "(.//*[@itemprop='text'])[1]",
-            "_transformation": "RemoveExtraSpacesTransformation"
+            "_transformation": "RemoveExtraWhitespaceTransformation"
         },
         "hints": ".//div[contains(@class, 'post-taglist')]/a",
         "votes": {

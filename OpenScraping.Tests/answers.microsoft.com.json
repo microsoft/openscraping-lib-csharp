@@ -13,7 +13,7 @@
         "title": ".//h1[@id='threadTitle']",
         "content": {
             "_xpath": ".//div[contains(@class, 'msgBody')]",
-            "_transformation": "RemoveExtraSpacesTransformation"
+            "_transformation": "RemoveExtraWhitespaceTransformation"
         },
         "hints": ".//div[contains(@class, 'qMeta')]/ul/li//a",
         "views": {
