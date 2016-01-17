@@ -10,7 +10,7 @@ This is the **C#** version. A separate but similar **Node.js** library is locate
 
 ## Self-contained example
 
-Create a new console C# project, then install the OpenScraping NuGet package in the GUI, or use this command in the [Package Manager Console](http://docs.nuget.org/consume/package-manager-console):
+Create a new console C# project, then install the [OpenScraping NuGet package](https://www.nuget.org/packages/OpenScraping/) by using the GUI or by using this command in the [Package Manager Console](http://docs.nuget.org/consume/package-manager-console):
 
 ```PowerShell
 Install-Package OpenScraping
