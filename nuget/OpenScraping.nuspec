@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>OpenScraping</id>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <title>OpenScraping HTML Structured Data Extraction C# Library</title>
     <authors>Ovidiu Dan</authors>
     <owners>Ovidiu Dan</owners>
