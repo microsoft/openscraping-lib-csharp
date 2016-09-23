@@ -146,7 +146,7 @@ Here is a snippet of the result:
 Here is how the [www.ikea.com page](https://github.com/OpenScraping/openscraping-lib-nodejs//blob/master/test/www.ikea.com.html) looked like on the day we saved the HTML for this sample:
 <p align="center"><img src='https://i.imgur.com/2Q65ybI.jpg' alt='Ikea example page' width='500'></p>
 
-You can find more complex examples in the [unit tests](https://github.com/Microsoft/openscraping-lib-csharp/blob/documentation-nuget/OpenScraping.Tests/StructuredDataExtractionTests.cs).
+You can find more complex examples in the [unit tests](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/StructuredDataExtractionTests.cs).
 
 ## Transformations
 
