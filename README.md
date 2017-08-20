@@ -6,7 +6,7 @@ Turn unstructured HTML pages into structured data. The OpenScraping library can 
 
 This library is used in production to scrape thousands of pages. 
 
-This is the **C#** version. A separate but similar **Node.js** library is located [here](https://github.com/OpenScraping/openscraping-lib-nodejs/).
+The latest NuGet package is only compatible with .Net Core 2.0 projects only. If your project uses .Net Framework, please use version 0.0.5 of the package.
 
 ## Self-contained example
 
