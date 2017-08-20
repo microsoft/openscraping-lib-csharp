@@ -1,0 +1,68 @@
+﻿{
+    "_urlPatterns": [
+        "^https?:\/\/.+\\.stackexchange\\.com\/questions\/[0-9]+\/.+$",
+        "^https?:\/\/stackoverflow\\.com\/questions\/[0-9]+\/.+$",
+        "^https?:\/\/serverfault\\.com\/questions\/[0-9]+\/.+$",
+        "^https?:\/\/superuser\\.com\/questions\/[0-9]+\/.+$",
+        "^https?:\/\/askubuntu\\.com\/questions\/[0-9]+\/.+$"
+    ],
+    "_removeTags": [
+        "script",
+        "style",
+        "#comment"
+    ],
+    "question": {
+        "_xpath": "(//*[@itemtype='http://schema.org/Question'])[1]",
+        "title": "(.//*[@itemprop='name'])[1]",
+        "content": {
+            "_xpath": "(.//*[@itemprop='text'])[1]",
+            "_transformation": "RemoveExtraWhitespaceTransformation"
+        },
+        "hints": ".//div[contains(@class, 'post-taglist')]/a",
+        "votes": {
+            "_xpath": "(.//*[@itemprop='upvoteCount'])[1]",
+            "_transformations": [
+                {
+                    "_type": "CastToIntegerTransformation"
+                }
+            ]
+        }
+    },
+    "bestAnswer": {
+        "_xpath": "(//*[@itemtype='http://schema.org/Question'])[1]//*[@itemtype='http://schema.org/Answer' and @itemprop='acceptedAnswer'][1]",
+        "content": "(.//*[@itemprop='text'])[1]",
+        "votes": {
+            "_xpath": "(.//*[@itemprop='upvoteCount'])[1]",
+            "_transformations": [
+                {
+                    "_type": "CastToIntegerTransformation"
+                }
+            ]
+        },
+        "lists": {
+            "_xpath": ".//ol | .//ul",
+            "_forceArray": true,
+            "textAboveLength": {
+                "_xpath": ".",
+                "_transformations": [
+                    {
+                        "_type": "TotalTextLengthAboveListTransformation",
+                        "_comment": "Please note: the context of _startingXPath is the _xpath for bestAnswer above, not of lists above",
+                        "_startingXPath": "(.//*[@itemprop='text'])[1]"
+                    }
+                ]
+            },
+            "title": {
+                "_xpath": ".",
+                "_transformations": [
+                    {
+                        "_type": "ListTitleTransformation",
+                        "_maxStepsUpward": 3,
+                        "_maxTitleLength": 250
+                    }
+                ]
+            },
+            "items": "./li"
+        }
+    }
+}

@@ -1,0 +1,82 @@
+﻿{
+    "_urlPatterns": [
+        "^https?:\/\/www\\.quora\\.com\/.+$"
+    ],
+    "_removeTags": [
+        "script",
+        "style",
+        "#comment"
+    ],
+    "question": {
+        "_xpath": "//div[contains(@class, 'question_text_edit')][1]",
+        "title": ".//span[contains(@class, 'rendered_qtext')][1]",
+        "hints": {
+            "_xpath": "//div[contains(@class, 'QuestionTopicListItems')]//span[contains(@class, 'TopicNameSpan')]",
+            "_forceArray": true
+        }
+    },
+    "bestAnswer": {
+        "_xpath": "//div[contains(@class, 'AnswerWikiArea')][1]",
+        "content": "(.//span[contains(@class, 'rendered_qtext')])[1]",
+        "lists": {
+            "_xpath": ".//ol | .//ul",
+            "_forceArray": true,
+            "textAboveLength": {
+                "_xpath": ".",
+                "_transformations": [
+                    {
+                        "_type": "TotalTextLengthAboveListTransformation",
+                        "_comment": "Please note: the context of _startingXPath is the _xpath for bestAnswer above, not of lists above",
+                        "_startingXPath": "(.//span[contains(@class, 'rendered_qtext')])[1]"
+                    }
+                ]
+            },
+            "title": {
+                "_xpath": ".",
+                "_transformations": [
+                    {
+                        "_type": "ListTitleTransformation",
+                        "_maxStepsUpward": 3,
+                        "_maxTitleLength": 250
+                    }
+                ]
+            },
+            "items": "./li"
+        }
+    },
+    "answers": {
+        "_xpath": "//div[contains(@class, 'AnswerBase')]",
+        "_forceArray": true,
+        "author": "(.//a[contains(@class, 'user')]/text())[1]",
+        "views": {
+            "_xpath": "(.//div[contains(@class, 'CredibilityFact')]/text())[1]",
+            "_transformations": [ "AbbreviatedIntegerTranformation" ]
+        },
+        "content": "(.//div[contains(@class, 'ExpandedAnswer')]/span[contains(@class, 'rendered_qtext')])[1]",
+        "lists": {
+            "_xpath": ".//div[contains(@class, 'ExpandedAnswer')]/span[contains(@class, 'rendered_qtext')]//ol | .//div[contains(@class, 'ExpandedAnswer')]/span[contains(@class, 'rendered_qtext')]//ul",
+            "_forceArray": true,
+            "textAboveLength": {
+                "_xpath": ".",
+                "_transformations": [
+                    {
+                        "_type": "TotalTextLengthAboveListTransformation",
+                        "_comment": "Please note: the context of _startingXPath is the _xpath for answers above, not of lists above",
+                        "_startingXPath": "(.//div[contains(@class, 'ExpandedAnswer')]/span[contains(@class, 'rendered_qtext')])[1]"
+                    }
+                ]
+            },
+            "title": {
+                "_xpath": ".",
+                "_transformations": [
+                    {
+                        "_type": "ListTitleTransformation",
+                        "_maxStepsUpward": 3,
+                        "_maxTitleLength": 250
+                    }
+                ]
+            },
+            "items": "./li"
+        }
+    }
+}
