@@ -1,43 +1,31 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenScraping", "OpenScraping\OpenScraping.csproj", "{4579ED3D-E3AA-44B3-8933-610C46EC213A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenScraping", "OpenScraping\OpenScraping.csproj", "{C38AA240-58C8-4081-BFA1-2818DE64A583}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenScraping.Tests", "OpenScraping.Tests\OpenScraping.Tests.csproj", "{F9966820-F302-4FFD-BFAF-E16026D6B77F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EB0E302D-8480-4E95-B381-6D229C38AA72}"
-	ProjectSection(SolutionItems) = preProject
-		.travis.yml = .travis.yml
-		LICENSE = LICENSE
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenScraping.Tests", "OpenScraping.Tests\OpenScraping.Tests.csproj", "{AB0BE337-12A9-4807-96F5-73854A81C2D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug-Net45|Any CPU = Debug-Net45|Any CPU
-		Nunit-Net45|Any CPU = Nunit-Net45|Any CPU
-		Release-Net40|Any CPU = Release-Net40|Any CPU
-		Release-Net45|Any CPU = Release-Net45|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4579ED3D-E3AA-44B3-8933-610C46EC213A}.Debug-Net45|Any CPU.ActiveCfg = Debug-Net45|Any CPU
-		{4579ED3D-E3AA-44B3-8933-610C46EC213A}.Debug-Net45|Any CPU.Build.0 = Debug-Net45|Any CPU
-		{4579ED3D-E3AA-44B3-8933-610C46EC213A}.Nunit-Net45|Any CPU.ActiveCfg = Nunit-Net45|Any CPU
-		{4579ED3D-E3AA-44B3-8933-610C46EC213A}.Nunit-Net45|Any CPU.Build.0 = Nunit-Net45|Any CPU
-		{4579ED3D-E3AA-44B3-8933-610C46EC213A}.Release-Net40|Any CPU.ActiveCfg = Release-Net40|Any CPU
-		{4579ED3D-E3AA-44B3-8933-610C46EC213A}.Release-Net40|Any CPU.Build.0 = Release-Net40|Any CPU
-		{4579ED3D-E3AA-44B3-8933-610C46EC213A}.Release-Net45|Any CPU.ActiveCfg = Release-Net45|Any CPU
-		{4579ED3D-E3AA-44B3-8933-610C46EC213A}.Release-Net45|Any CPU.Build.0 = Release-Net45|Any CPU
-		{F9966820-F302-4FFD-BFAF-E16026D6B77F}.Debug-Net45|Any CPU.ActiveCfg = Debug-Net45|Any CPU
-		{F9966820-F302-4FFD-BFAF-E16026D6B77F}.Debug-Net45|Any CPU.Build.0 = Debug-Net45|Any CPU
-		{F9966820-F302-4FFD-BFAF-E16026D6B77F}.Nunit-Net45|Any CPU.ActiveCfg = Nunit-Net45|Any CPU
-		{F9966820-F302-4FFD-BFAF-E16026D6B77F}.Nunit-Net45|Any CPU.Build.0 = Nunit-Net45|Any CPU
-		{F9966820-F302-4FFD-BFAF-E16026D6B77F}.Release-Net40|Any CPU.ActiveCfg = Release-Net40|Any CPU
-		{F9966820-F302-4FFD-BFAF-E16026D6B77F}.Release-Net45|Any CPU.ActiveCfg = Release-Net45|Any CPU
-		{F9966820-F302-4FFD-BFAF-E16026D6B77F}.Release-Net45|Any CPU.Build.0 = Release-Net45|Any CPU
+		{C38AA240-58C8-4081-BFA1-2818DE64A583}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C38AA240-58C8-4081-BFA1-2818DE64A583}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C38AA240-58C8-4081-BFA1-2818DE64A583}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C38AA240-58C8-4081-BFA1-2818DE64A583}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB0BE337-12A9-4807-96F5-73854A81C2D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB0BE337-12A9-4807-96F5-73854A81C2D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB0BE337-12A9-4807-96F5-73854A81C2D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB0BE337-12A9-4807-96F5-73854A81C2D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1A8ED5E1-7FCB-4FA8-B769-AABB13B5D8EF}
 	EndGlobalSection
 EndGlobal

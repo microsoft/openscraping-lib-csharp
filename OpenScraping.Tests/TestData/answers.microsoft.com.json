@@ -1,0 +1,63 @@
+﻿{
+    "_urlPatterns": [
+        "^https?:\/\/answers\\.microsoft\\.com\/en-us\/.+\/forum\/.+\/.+\/.+$"
+    ],
+    "_removeTags": [
+        "script",
+        "style",
+        "#comment",
+        "blockquote"
+    ],
+    "question": {
+        "_xpath": "//div[@id='questioncontainer'][1]",
+        "title": ".//h1[@id='threadTitle']",
+        "content": {
+            "_xpath": ".//div[contains(@class, 'msgBody')]",
+            "_transformation": "RemoveExtraWhitespaceTransformation"
+        },
+        "hints": ".//div[contains(@class, 'qMeta')]/ul/li//a",
+        "views": {
+            "_xpath": ".//span[contains(@class, 'viewsCount')]",
+            "_transformation": "ExtractIntegerTransformation"
+        },
+        "votes": {
+            "_xpath": ".//span[contains(@class, 'ratingCount')]",
+            "_transformation": "ExtractIntegerTransformation"
+        }
+    },
+    "answers": {
+        "_xpath": "//div[@id='ThreadAnswers']/div[contains(@class, 'contentWrapper')]",
+        "_forceArray": true,
+        "type": ".//div[contains(@class, 'messageType')]",
+        "content": ".//div[contains(@class, 'msgBody')]//p",
+        "lists": {
+            "_xpath": ".//div[contains(@class, 'msgBody ')]//ol | .//div[contains(@class, 'msgBody ')]//ul",
+            "_forceArray": true,
+            "textAboveLength": {
+                "_xpath": ".",
+                "_transformations": [
+                    {
+                        "_type": "TotalTextLengthAboveListTransformation",
+                        "_comment": "Please note: the context of _startingXPath is the _xpath for answers above, not of lists above",
+                        "_startingXPath": ".//div[contains(@class, 'msgBody')]"
+                    }
+                ]
+            },
+            "title": {
+                "_xpath": ".",
+                "_transformations": [
+                    {
+                        "_type": "ListTitleTransformation",
+                        "_maxStepsUpward": 3,
+                        "_maxTitleLength": 250
+                    }
+                ]
+            },
+            "items": "./li"
+        },
+        "votes": {
+            "_xpath": ".//span[contains(@class, 'ratingCount')]",
+            "_transformation": "ExtractIntegerTransformation"
+        }
+    }
+}
