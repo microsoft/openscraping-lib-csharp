@@ -17,15 +17,13 @@ namespace Microsoft.Search.StructuredDataExtraction.Tests
     [TestClass]
     public class StructuredDataExtractionTests
     {
-        [DeploymentItem(@"TestData\answers.microsoft.com.html")]
-        [DeploymentItem(@"TestData\answers.microsoft.com.json")]
         [TestMethod]
         public void MicrosoftAnswersExtractionTest()
         {
-            var configPath = @"TestData\answers.microsoft.com.json";
+            var configPath = Path.Combine("TestData", "answers.microsoft.com.json");
             var config = StructuredDataConfig.ParseJsonFile(configPath);
             var extractor = new StructuredDataExtractor(config);
-            var result = extractor.Extract(File.ReadAllText(@"TestData\answers.microsoft.com.html"));
+            var result = extractor.Extract(File.ReadAllText(Path.Combine("TestData", "answers.microsoft.com.html")));
             var json = JsonConvert.SerializeObject(result, Formatting.Indented);
 
             dynamic parsedJson = JsonConvert.DeserializeObject(json);
@@ -72,15 +70,13 @@ namespace Microsoft.Search.StructuredDataExtraction.Tests
             }
         }
 
-        [DeploymentItem(@"TestData\support.office.com.html")]
-        [DeploymentItem(@"TestData\support.office.com.json")]
         [TestMethod]
         public void OfficeSupportExtractionTest()
         {
-            var configPath = @"TestData\support.office.com.json";
+            var configPath = Path.Combine("TestData", "support.office.com.json");
             var config = StructuredDataConfig.ParseJsonFile(configPath);
             var extractor = new StructuredDataExtractor(config);
-            var result = extractor.Extract(File.ReadAllText(@"TestData\support.office.com.html"));
+            var result = extractor.Extract(File.ReadAllText(Path.Combine("TestData", "support.office.com.html")));
             var json = JsonConvert.SerializeObject(result, Formatting.Indented);
 
             dynamic parsedJson = JsonConvert.DeserializeObject(json);
@@ -101,17 +97,13 @@ namespace Microsoft.Search.StructuredDataExtraction.Tests
             Assert.AreEqual(4, secondList["items"].Count, "The second list in the second section should have 4 items");
         }
 
-        [DeploymentItem(@"TestData\answers.microsoft.com.html")]
-        [DeploymentItem(@"TestData\answers.microsoft.com.json")]
-        [DeploymentItem(@"TestData\support.office.com.html")]
-        [DeploymentItem(@"TestData\support.office.com.json")]
         [TestMethod]
         public void MultiWebsiteExtractionTest()
         {
-            var multiExtractor = new MultiExtractor(configRootFolder: "./TestData", configFilesPattern: "*.json");
+            var multiExtractor = new MultiExtractor(configRootFolder: "TestData", configFilesPattern: "*.json");
             var json = multiExtractor.ParsePage(
                 url: "http://answers.microsoft.com/en-us/windows/forum/windows_10-win_upgrade/i-want-to-reserve-my-free-copy-of-windows-10-but-i/9c3f7f56-3da8-4b40-a30f-e33772439ee1", 
-                html: File.ReadAllText(@"TestData\answers.microsoft.com.html"));
+                html: File.ReadAllText(Path.Combine("TestData", "answers.microsoft.com.html")));
 
             dynamic parsedJson = JsonConvert.DeserializeObject(json);
 
@@ -157,15 +149,13 @@ namespace Microsoft.Search.StructuredDataExtraction.Tests
             }
         }
 
-        [DeploymentItem(@"TestData\stackoverflow.com.example1.html")]
-        [DeploymentItem(@"TestData\stackexchange.com.json")]
         [TestMethod]
         public void StackExchangeEx1ExtractionTest()
         {
-            var configPath = @"TestData\stackexchange.com.json";
+            var configPath = Path.Combine("TestData", "stackexchange.com.json");
             var config = StructuredDataConfig.ParseJsonFile(configPath);
             var extractor = new StructuredDataExtractor(config);
-            var result = extractor.Extract(File.ReadAllText(@"TestData\stackoverflow.com.example1.html"));
+            var result = extractor.Extract(File.ReadAllText(Path.Combine("TestData", "stackoverflow.com.example1.html")));
             var json = JsonConvert.SerializeObject(result, Formatting.Indented);
 
             dynamic parsedJson = JsonConvert.DeserializeObject(json);
@@ -212,15 +202,13 @@ namespace Microsoft.Search.StructuredDataExtraction.Tests
             }
         }
 
-        [DeploymentItem(@"TestData\stackoverflow.com.example2.html")]
-        [DeploymentItem(@"TestData\stackexchange.com.json")]
         [TestMethod]
         public void StackExchangeEx2ExtractionTest()
         {
-            var configPath = @"TestData\stackexchange.com.json";
+            var configPath = Path.Combine("TestData", "stackexchange.com.json");
             var config = StructuredDataConfig.ParseJsonFile(configPath);
             var extractor = new StructuredDataExtractor(config);
-            var result = extractor.Extract(File.ReadAllText(@"TestData\stackoverflow.com.example2.html"));
+            var result = extractor.Extract(File.ReadAllText(Path.Combine("TestData", "stackoverflow.com.example2.html")));
             var json = JsonConvert.SerializeObject(result, Formatting.Indented);
 
             dynamic parsedJson = JsonConvert.DeserializeObject(json);
@@ -267,15 +255,13 @@ namespace Microsoft.Search.StructuredDataExtraction.Tests
             }
         }
 
-        [DeploymentItem(@"TestData\quora.com.html")]
-        [DeploymentItem(@"TestData\quora.com.json")]
         [TestMethod]
         public void QuoraExtractionTest()
         {
-            var configPath = @"TestData\quora.com.json";
+            var configPath = Path.Combine("TestData", "quora.com.json");
             var config = StructuredDataConfig.ParseJsonFile(configPath);
             var extractor = new StructuredDataExtractor(config);
-            var result = extractor.Extract(File.ReadAllText(@"TestData\quora.com.html"));
+            var result = extractor.Extract(File.ReadAllText(Path.Combine("TestData", "quora.com.html")));
             var json = JsonConvert.SerializeObject(result, Formatting.Indented);
 
             dynamic parsedJson = JsonConvert.DeserializeObject(json);
@@ -322,15 +308,13 @@ namespace Microsoft.Search.StructuredDataExtraction.Tests
             }
         }
 
-        [DeploymentItem(@"TestData\quora.com.withwiki.html")]
-        [DeploymentItem(@"TestData\quora.com.json")]
         [TestMethod]
         public void QuoraWithWikiExtractionTest()
         {
-            var configPath = @"TestData\quora.com.json";
+            var configPath = Path.Combine("TestData", "quora.com.json");
             var config = StructuredDataConfig.ParseJsonFile(configPath);
             var extractor = new StructuredDataExtractor(config);
-            var result = extractor.Extract(File.ReadAllText(@"TestData\quora.com.withwiki.html"));
+            var result = extractor.Extract(File.ReadAllText(Path.Combine("TestData", "quora.com.withwiki.html")));
             var json = JsonConvert.SerializeObject(result, Formatting.Indented);
 
             dynamic parsedJson = JsonConvert.DeserializeObject(json);
