@@ -1,4 +1,5 @@
 Reference - How to Create a NuGet Package with Cross Platform Tools: https://github.com/dotnet/docs/blob/master/docs/core/deploying/creating-nuget-packages.md
+
 Reference - dotnet nuget push: https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-nuget-push
 
 To generate the Nuget package:
