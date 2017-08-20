@@ -5,3 +5,5 @@ dist: trusty
 
 script:
   - dotnet build
+  - cd OpenScraping.Tests
+  - dotnet test
