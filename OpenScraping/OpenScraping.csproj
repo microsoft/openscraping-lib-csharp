@@ -10,6 +10,10 @@
     <RepositoryType>https://github.com/Microsoft/openscraping-lib-csharp</RepositoryType>
     <PackageTags>html extraction scraping scraper parser parsing open scraping openscraping</PackageTags>
     <PackageReleaseNotes>.NET Core 2.0 support</PackageReleaseNotes>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+    <PackageIconUrl>https://github.com/Microsoft/openscraping-lib-csharp/blob/master/logo.png?raw=true</PackageIconUrl>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
