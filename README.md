@@ -6,7 +6,7 @@ Turn unstructured HTML pages into structured data. The OpenScraping library can 
 
 This library is used in production to scrape thousands of pages. 
 
-The latest NuGet package is only compatible with .Net Core 2.0 projects only. If your project uses .Net Framework, please use version 0.0.5 of the package.
+The latest NuGet package is only compatible with .Net Core 2.0 projects. If your project uses .Net Framework, please use version 0.0.5 of the package.
 
 ## Self-contained example
 
