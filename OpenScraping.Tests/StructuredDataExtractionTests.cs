@@ -32,6 +32,7 @@ namespace Microsoft.Search.StructuredDataExtraction.Tests
             Assert.AreNotEqual(null, parsedJson["question"], "Extractor should find a question in the HTML file");
             
             var question = parsedJson["question"];
+            Assert.AreEqual("8acb1ac5-0acd-4c68-9eeb-e4afff5b39d8", question["id"].Value, "The extracted id is incorrect");
             Assert.AreEqual("I want to reserve my free copy of Windows 10, but I don’t see the icon on the taskbar", question["title"].Value, "The extracted title is incorrect");
             Assert.AreNotEqual(null, question["content"], "The extracted question should have a content");
             Assert.IsTrue(question["content"].Value.Length > 0, "The extracted question content should have a length > 0");
