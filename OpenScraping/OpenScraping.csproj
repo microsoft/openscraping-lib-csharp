@@ -1,7 +1,6 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Ovidiu Dan</Authors>
     <Company>Microsoft</Company>
     <Description>Turn unstructured HTML pages into structured data. The OpenScraping library can extract information from HTML pages using a JSON config file with xPath rules. It can scrape even multi-level complex objects such as tables and forum posts.</Description>
@@ -10,15 +9,13 @@
     <RepositoryType>https://github.com/Microsoft/openscraping-lib-csharp</RepositoryType>
     <PackageTags>html extraction scraping scraper parser parsing open scraping openscraping</PackageTags>
     <PackageReleaseNotes>.NET Core 2.0 support</PackageReleaseNotes>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
     <PackageIconUrl>https://github.com/Microsoft/openscraping-lib-csharp/blob/master/logo.png?raw=true</PackageIconUrl>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.5.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.8.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
-
 </Project>
