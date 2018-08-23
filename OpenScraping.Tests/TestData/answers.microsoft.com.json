@@ -10,6 +10,7 @@
     ],
     "question": {
         "_xpath": "//div[@id='questioncontainer'][1]",
+        "id": ".//@msgid",
         "title": ".//h1[@id='threadTitle']",
         "content": {
             "_xpath": ".//div[contains(@class, 'msgBody')]",

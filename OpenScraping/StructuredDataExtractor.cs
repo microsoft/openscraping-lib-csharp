@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Xml.XPath;
+
 namespace OpenScraping
 {
     using System;
@@ -118,36 +120,38 @@ namespace OpenScraping
 
             if (config.XPathRules != null && config.XPathRules.Count > 0)
             {
+                var navigator = parentNode.CreateNavigator();
+
                 foreach (var xpath in config.XPathRules)
                 {
                     // TODO: Add try catch Exception
-                    var nodes = parentNode.SelectNodes(xpath);
+                    var nodes = navigator.Select(xpath);
 
                     if (nodes != null && nodes.Count > 0)
                     {
                         var newLogicalParents = logicalParents.GetRange(0, logicalParents.Count);
                         newLogicalParents.Add(parentNode);
 
-                        foreach (var node in nodes)
+                        foreach (HtmlNodeNavigator node in nodes)
                         {
                             if (config.Children != null && config.Children.Count > 0)
                             {
                                 var container = new JObject();
-                                this.ExtractChildren(config: config, parentNode: node, container: container, logicalParents: newLogicalParents);
+                                this.ExtractChildren(config: config, parentNode: node.CurrentNode, container: container, logicalParents: newLogicalParents);
                                 containers.Add(container);
                             }
                             else if (config.Transformations != null && config.Transformations.Count > 0)
                             {
-                                var obj = this.RunTransformations(config.Transformations, node, newLogicalParents);
+                                var obj = this.RunTransformations(config.Transformations, node.CurrentNode, newLogicalParents);
 
                                 if (obj != null)
                                 {
                                     containers.Add(obj);
                                 }
                             }
-                            else if (node.InnerText != null)
+                            else if (node.Value != null)
                             {
-                                containers.Add(HtmlEntity.DeEntitize(node.InnerText).Trim());
+                                containers.Add(HtmlEntity.DeEntitize(node.Value).Trim());
                             }
                         }
                     }
