@@ -134,6 +134,8 @@ namespace OpenScraping
 
                         foreach (HtmlNodeNavigator node in nodes)
                         {
+                            this.RemoveXPaths(config, node.CurrentNode);
+
                             if (config.Children != null && config.Children.Count > 0)
                             {
                                 var container = new JObject();
@@ -186,6 +188,23 @@ namespace OpenScraping
                         .Where(n => config.RemoveTags.Contains(n.Name.ToLowerInvariant()))
                         .ToList()
                         .ForEach(n => n.Remove());
+            }
+        }
+
+        private void RemoveXPaths(ConfigSection config, HtmlAgilityPack.HtmlNode parentNode)
+        {
+            if (parentNode != null && config != null && config.RemoveXPathRules != null && config.RemoveXPathRules.Count > 0)
+            {
+                foreach (var removeXPathRule in config.RemoveXPathRules)
+                {
+                    var navigator = parentNode.CreateNavigator();
+                    var nodes = navigator.Select(removeXPathRule);
+
+                    foreach (HtmlNodeNavigator node in nodes)
+                    {
+                        node.CurrentNode.Remove();
+                    }
+                }
             }
         }
 

@@ -256,6 +256,60 @@ namespace Microsoft.Search.StructuredDataExtraction.Tests
             }
         }
 
+        // Tests JSON config rules which are singular and plural (_xpath vs _xpaths, _transformation vs _transformations, etc.)
+        [TestMethod]
+        public void StackExchangeEx1SingularPluralExtractionTest()
+        {
+            var configPath = Path.Combine("TestData", "stackexchange_plural_singular_rules.json");
+            var config = StructuredDataConfig.ParseJsonFile(configPath);
+            var extractor = new StructuredDataExtractor(config);
+            var result = extractor.Extract(File.ReadAllText(Path.Combine("TestData", "stackoverflow.com.example1.html")));
+            var json = JsonConvert.SerializeObject(result, Formatting.Indented);
+
+            dynamic parsedJson = JsonConvert.DeserializeObject(json);
+
+            // Question
+            Assert.AreNotEqual(null, parsedJson["question"], "Extractor should find a question in the HTML file");
+
+            var question = parsedJson["question"];
+            Assert.AreEqual("Is there a way to crack the password on an Excel VBA Project?", question["title"].Value, "The extracted title is incorrect");
+            Assert.AreNotEqual(null, question["content"], "The extracted question should have a content");
+            Assert.AreEqual(JTokenType.String, question["content"].Type, "The extracted question content should be a string");
+            Assert.IsTrue(question["content"].Value.Length > 0, "The extracted question content should have a length > 0");
+            Assert.AreNotEqual(null, question["votes"], "The extracted question should have a votes field");
+            Assert.AreEqual(JTokenType.Integer, question["votes"].Type, "The votes extracted from the question should be of type int");
+            Assert.AreEqual(196, question["votes"].Value, "The votes extracted from the question should have a value of 196");
+
+            // Question context
+            Assert.AreNotEqual(null, question["hints"], "The extracted question should have hints");
+            Assert.AreEqual(4, question["hints"].Count, "The extracted question should have 4 hints");
+            Assert.AreEqual("passwords", question["hints"][3].ToString(), "The 4th hint of the extracted question should be passwords");
+
+            // Best Answer
+            var bestAnswer = parsedJson["bestAnswer"];
+            Assert.AreNotEqual(null, bestAnswer["content"], "The extracted answer should have a content");
+            Assert.AreEqual(JTokenType.String, bestAnswer["content"].Type, "The extracted answer content should be a string");
+            Assert.IsTrue(bestAnswer["content"].Value.Length > 0, "The extracted answer content should have a length > 0");
+            Assert.AreNotEqual(null, bestAnswer["votes"], "The extracted answer should have a votes field");
+            Assert.AreEqual(JTokenType.Integer, bestAnswer["votes"].Type, "The votes extracted from the answer should be of type int");
+            Assert.AreEqual(153, bestAnswer["votes"].Value, "The votes extracted from the answer should have a value of 153");
+            Assert.AreEqual(1, bestAnswer["lists"].Count, "The lists array should have 1 item");
+            Assert.AreEqual(8, bestAnswer["lists"][0]["items"].Count, "The first item in the lists array should have 4 items");
+
+            // Check is textAboveLength exists in each list
+            var lists = bestAnswer["lists"];
+
+            if (lists != null)
+            {
+                foreach (var list in lists)
+                {
+                    Assert.AreEqual(JTokenType.Integer, list["textAboveLength"].Type, "The extracted textAboveLength should be an integer");
+                    var textAboveLength = ((JValue)list["textAboveLength"]).ToObject<int>();
+                    Assert.IsTrue(textAboveLength > 0, string.Format(CultureInfo.InvariantCulture, "textAboveLength was not greater than 0. The extracted value is: {0}", textAboveLength));
+                }
+            }
+        }
+
         [TestMethod]
         public void QuoraExtractionTest()
         {
@@ -366,6 +420,22 @@ namespace Microsoft.Search.StructuredDataExtraction.Tests
                     Assert.IsTrue(textAboveLength > 0, string.Format(CultureInfo.InvariantCulture, "textAboveLength was not greater than 0. The extracted value is: {0}", textAboveLength));
                 }
             }
+        }
+
+        [TestMethod]
+        public void RemoveXPathsExtractionTest()
+        {
+            var configPath = Path.Combine("TestData", "article_with_comments_div.json");
+            var config = StructuredDataConfig.ParseJsonFile(configPath);
+            var extractor = new StructuredDataExtractor(config);
+            var result = extractor.Extract(File.ReadAllText(Path.Combine("TestData", "article_with_comments_div.html")));
+            var json = JsonConvert.SerializeObject(result, Formatting.Indented);
+
+            dynamic parsedJson = JsonConvert.DeserializeObject(json);
+
+            Assert.AreEqual("Article  title", parsedJson["title"].Value, "The extracted title is incorrect");
+            Assert.AreEqual("Para1 content Para2 content", parsedJson["body"].Value, "The extracted body is incorrect");
+
         }
     }
 }

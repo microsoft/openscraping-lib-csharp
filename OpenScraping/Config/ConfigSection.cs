@@ -15,6 +15,7 @@ namespace OpenScraping.Config
             this.ConfigName = string.Empty;
             this.RemoveTags = new HashSet<string>();
             this.UrlPatterns = new List<string>();
+            this.RemoveXPathRules = new HashSet<string>();
             this.XPathRules = new List<string>();
             this.Transformations = new List<TransformationConfig>();
             this.Children = new Dictionary<string, ConfigSection>();
@@ -29,6 +30,9 @@ namespace OpenScraping.Config
 
         // List of descendent tags to remove before extracting any data from this node
         public HashSet<string> RemoveTags { get; set; }
+
+        // List of XPath rules to apply for deleting descendant nodes before extracting any data from this node
+        public HashSet<string> RemoveXPathRules { get; set; }
 
         // The list of XPaths to use to find these kinds of items in the HTML
         public List<string> XPathRules { get; set; }
