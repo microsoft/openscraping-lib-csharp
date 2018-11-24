@@ -1,0 +1,33 @@
+﻿{
+  "parsedDateNoFormat": {
+    "_xpath": "//p[@id='published-timestamp1']",
+    "_transformation": "ParseDateTransformation"
+  },
+  "parsedDateWithFormat": {
+    "_xpath": "//p[@id='published-timestamp2']",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "Published: (.*)"
+      },
+      {
+        "_type": "ParseDateTransformation",
+        "_format": "MM-dd-yy"
+      }
+    ]
+  },
+  "parsedDateNoFormatWithProviderStyle": {
+    "_xpath": "//p[@id='published-timestamp3']",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "Published: (.*)"
+      },
+      {
+        "_type": "ParseDateTransformation",
+        "_formatProvider": "de-DE",
+        "_dateStyle": "None"
+      }
+    ]
+  }
+}

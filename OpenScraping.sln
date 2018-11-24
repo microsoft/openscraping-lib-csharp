@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenScraping", "OpenScraping\OpenScraping.csproj", "{C38AA240-58C8-4081-BFA1-2818DE64A583}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenScraping.Tests", "OpenScraping.Tests\OpenScraping.Tests.csproj", "{AB0BE337-12A9-4807-96F5-73854A81C2D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenScraping.Tests", "OpenScraping.Tests\OpenScraping.Tests.csproj", "{AB0BE337-12A9-4807-96F5-73854A81C2D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

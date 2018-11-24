@@ -1,0 +1,90 @@
+﻿{
+  "publishedDTNoGroupNameForceArrayFalse": {
+    "_xpath": "//p[@id='published-timestamp2']",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "Published: (.*)"
+      }
+    ]
+  },
+  "publishedDTWithGroupNameForceArrayFalse": {
+    "_xpath": "//p[@id='published-timestamp2']",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "Published: (?<date>.*)",
+        "_regexOption": "IgnoreCase"
+      }
+    ]
+  },
+  "multiMatchNoGroupNameForceArrayFalse": {
+    "_xpath": "//div[@class='info']",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "^Contact information\\. Phone: ([0-9-]+), Address: (.*)$",
+        "_regexOptions": [ "IgnoreCase", "CultureInvariant" ]
+      }
+    ]
+  },
+  "multiMatchWithGroupNameForceArrayFalse": {
+    "_xpath": "//div[@class='info']",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "^Contact information\\. Phone: (?<phone>[0-9-]+), Address: (?<address>.*)$"
+      }
+    ]
+  },
+  "publishedDTNoGroupNameForceArrayTrue": {
+    "_xpath": "//p[@id='published-timestamp3']",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "Published: (.*)",
+        "_forceArray": true
+      }
+    ]
+  },
+  "publishedDTWithGroupNameForceArrayTrue": {
+    "_xpath": "//p[@id='published-timestamp3']",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "Published: (?<date>.*)",
+        "_forceArray": true
+      }
+    ]
+  },
+  "multiMatchNoGroupNameForceArrayTrue": {
+    "_xpath": "//div[@class='info']",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "^Contact information\\. Phone: ([0-9-]+), Address: (.*)$",
+        "_forceArray": true
+      }
+    ]
+  },
+  "multiMatchWithGroupNameForceArrayTrue": {
+    "_xpath": "//div[@class='info']",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "^Contact information\\. Phone: (?<phone>[0-9-]+), Address: (?<address>.*)$",
+        "_forceArray": true
+      }
+    ]
+  },
+  "multiMatchWithSameGroupNameForceArrayTrue": {
+    "_xpath": "//div[@class='info']",
+    "_transformations": [
+      {
+        "_type": "RegexTransformation",
+        "_regex": "^Contact information\\. Phone: (?<same_group>[0-9-]+), Address: (?<same_group>.*)$",
+        "_forceArray": true
+      }
+    ]
+  }
+}

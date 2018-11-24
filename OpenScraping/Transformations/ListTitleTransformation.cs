@@ -41,12 +41,12 @@ namespace OpenScraping.Transformations
             var maxLevel = 3;
             var maxTitleLength = 200;
 
-            if (settings != null && settings["_maxStepsUpward"] != null && ((JValue)settings["_maxStepsUpward"]).Type == JTokenType.Integer)
+            if (settings != null && settings.ContainsKey("_maxStepsUpward") && ((JValue)settings["_maxStepsUpward"]).Type == JTokenType.Integer)
             {
                 maxLevel = ((JValue)settings["_maxStepsUpward"]).ToObject<int>();
             }
 
-            if (settings != null && settings["_maxTitleLength"] != null && ((JValue)settings["_maxTitleLength"]).Type == JTokenType.Integer)
+            if (settings != null && settings.ContainsKey("_maxTitleLength") && ((JValue)settings["_maxTitleLength"]).Type == JTokenType.Integer)
             {
                 maxTitleLength = ((JValue)settings["_maxTitleLength"]).ToObject<int>();
             }
