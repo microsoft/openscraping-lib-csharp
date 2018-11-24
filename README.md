@@ -152,7 +152,7 @@ You can find more complex examples in the [unit tests](https://github.com/Micros
 
 In the Ikea example above we used a transformation called *TrimTransformation*. Transformation modify the raw extracted HTML nodes in some ways. For instance, TrimTransformation just runs [String.Trim()](https://msdn.microsoft.com/en-us/library/system.string.trim(v=vs.110).aspx) on the extracted text before it gets written to the JSON output.
 
-Here are a few of the built-in transformations:
+Below are a few of the built-in transformations, with links to example rules. To see how the example rules are tested, please check the code of the [test class](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/StructuredDataExtractionTests.cs), as well as the HTML files in the [TestData folder](https://github.com/Microsoft/openscraping-lib-csharp/tree/master/OpenScraping.Tests/TestData).
 
 Name                                     | Purpose | Example
 ---------------------------------------- | ------- | --------------
@@ -163,7 +163,13 @@ ListTitleTransformation                  | Tries to find the "title" of the curr
 RemoveExtraWhitespaceTransformation      | Replaces consecutive spaces with a single space. For the string "hello&nbsp;&nbsp;&nbsp;&nbsp;world" it would return "hello world". | [Here](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/TestData/stackexchange.com.json)
 SplitTransformation                      | Splits the string into an array based on a separator. | [Here](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/TestData/support.office.com.json)
 TotalTextLengthAboveListTransformation   | Tries to determine the length of the text which is above an unordered or ordered HTML list. | [Here](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/TestData/answers.microsoft.com.json)
-TrimTransformation                       | Runs  [String.Trim()](https://msdn.microsoft.com/en-us/library/system.string.trim(v=vs.110).aspx) on the extracted text before it gets written to the JSON output. | 
+TrimTransformation                       | Runs  [String.Trim()](https://msdn.microsoft.com/en-us/library/system.string.trim(v=vs.110).aspx) on the extracted text before it gets written to the JSON output. | [Here](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/TestData/article_with_comments_div.json)
+RegexTransformation                       | Matches text with regular expressions | [Here](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/TestData/regex_rules.json)
+ParseDateTransformation                       | Converts text to date | [Here](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/TestData/parse_date_rules.json)
+
+### Writing custom transformations
+
+You can implement custom transformations in your own code. The library will pick them up through reflection. There are two types of transformations, ones that act on incoming HTML (first transformation in the chain), and ones that act on the output of previous transformations. The first kind implement ITransformationFromHtml and the second one implement ITransformationFromObject. You can actually have one transformation implement both interfaces, such as the [ParseDateTransformation](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping/Transformations/ParseDateTransformation.cs).
 
 ## Feature: Remove unwanted HTML tags and XPath nodes before extracting content
 
