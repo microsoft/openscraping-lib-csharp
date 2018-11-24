@@ -4,7 +4,7 @@
     <Authors>Ovidiu Dan</Authors>
     <Company>Microsoft</Company>
     <Description>Turn unstructured HTML pages into structured data. The OpenScraping library can extract information from HTML pages using a JSON config file with xPath rules. It can scrape even multi-level complex objects such as tables and forum posts.</Description>
-    <PackageLicenseUrl>https://github.com/Microsoft/openscraping-lib-csharp/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Microsoft/openscraping-lib-csharp</PackageProjectUrl>
     <RepositoryType>https://github.com/Microsoft/openscraping-lib-csharp</RepositoryType>
     <PackageTags>html extraction scraping scraper parser parsing open scraping openscraping</PackageTags>
