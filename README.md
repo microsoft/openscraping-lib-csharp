@@ -171,7 +171,7 @@ ParseDateTransformation                       | Converts text to date | [Here](h
 
 You can implement custom transformations in your own code. The library will pick them up through reflection. There are two types of transformations, ones that act on incoming HTML (first transformation in the chain), and ones that act on the output of previous transformations. The first kind implement ITransformationFromHtml and the second one implement ITransformationFromObject. You can actually have one transformation implement both interfaces, such as the [ParseDateTransformation](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping/Transformations/ParseDateTransformation.cs).
 
-## Feature: Remove unwanted HTML tags and XPath nodes before extracting content
+## Remove unwanted HTML tags and XPath nodes before extracting content
 
 Let's say you want to extract a news article but before the actual extraction you would like to remove some HTML nodes. You can do that in two ways. The first (deprecated) way is to use the the **\_removeTags** setting, where you can list names of HTML tags that need to be removed before we start processing the xPath rules. The second (better) way is setting the **\_removeXPaths** setting, which allows listing XPath rules to find nodes that we want to remove BEFORE we process the normal \_xpath extraction rules.
 
@@ -232,3 +232,30 @@ Result:
   "body": "Para1 content Para2 content"
 }
 ```
+
+## MultiExtractor: Load multiple xPath rule config files and match on URL
+
+You can use MultiExtractor to load multiple xPath rule JSON config files for different websites, then allow the code to pick the correct rule depending on the URL you provide. This is useful, for example, if you are parsing a network of websites with similar HTML design but with different URLs. For example, check these two JSON config files: [stackexchange.com.json](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/TestData/stackexchange.com.json) and [answers.microsoft.com.json](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/TestData/answers.microsoft.com.json). The first config file defines multiple potential URL patterns that can match that config:
+
+```javascript
+{
+    "_urlPatterns": [
+        "^https?:\/\/.+\\.stackexchange\\.com\/questions\/[0-9]+\/.+$",
+        "^https?:\/\/stackoverflow\\.com\/questions\/[0-9]+\/.+$",
+        "^https?:\/\/serverfault\\.com\/questions\/[0-9]+\/.+$",
+        "^https?:\/\/superuser\\.com\/questions\/[0-9]+\/.+$",
+        "^https?:\/\/askubuntu\\.com\/questions\/[0-9]+\/.+$"
+    ],
+...
+}
+```
+
+We can load multiple of these config files into a MultiExtractor, then we can pass in an HTML file and its corresponding URL. MultiExtractor will then goes over the **\_urlPatterns** in each config file, it picks the config file which matches the URL, then applies the corresponding rules.
+```csharp
+var multiExtractor = new MultiExtractor(configRootFolder: "TestData", configFilesPattern: "*.json");
+var json = multiExtractor.ParsePage(
+	url: "http://answers.microsoft.com/en-us/windows/forum/windows_10-win_upgrade/i-want-to-reserve-my-free-copy-of-windows-10-but-i/9c3f7f56-3da8-4b40-a30f-e33772439ee1", 
+	html: File.ReadAllText(Path.Combine("TestData", "answers.microsoft.com.html")));
+```
+
+To see a full example search for the **MultiWebsiteExtractionTest()** function in the [test class](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/StructuredDataExtractionTests.cs).
