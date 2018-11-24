@@ -1,0 +1,20 @@
+﻿{
+  "_removeTags": [
+    "script"
+  ],
+  "title": {
+    "_xpath": "//h1",
+    "_transformations": [
+      "TrimTransformation"
+    ]
+  },
+  "body": {
+    "_removeXPaths": [
+      "./div[@id='comments']"
+    ],
+    "_xpath": "//div[@id='primary']",
+    "_transformations": [
+      "RemoveExtraWhitespaceTransformation"
+    ]
+  }
+}

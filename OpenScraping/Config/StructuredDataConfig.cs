@@ -6,6 +6,7 @@
 
 namespace OpenScraping.Config
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Text;
     using Newtonsoft.Json;
@@ -38,33 +39,35 @@ namespace OpenScraping.Config
                         // Process the friendly internal name we have to this config
                         ProcessConfigName(parsedJson, currentConfig);
                         break;
+                    case "_urlPattern":
                     case "_urlPatterns":
                         // Process configuration on URL patterns that should be used to
                         // determine which HTML pages to process with the configuration
-                        ProcessUrlPatterns(parsedJson, currentConfig);
+                        ProcessConfigKey(parsedJson, currentConfig.UrlPatterns, keyName: item.Key);
                         break;
+                    case "_removeTag":
                     case "_removeTags":
                         // Process the list of descendent tags to remove before extracting any data from this node
-                        ProcessRemoveTags(parsedJson, currentConfig);
+                        ProcessConfigKey(parsedJson, currentConfig.RemoveTags, keyName: item.Key);
+                        break;
+                    case "_removeXPath":
+                    case "_removeXPaths":
+                        // Process the list of XPath rules to apply for deleting descendant nodes before extracting any data from this node
+                        ProcessConfigKey(parsedJson, currentConfig.RemoveXPathRules, keyName: item.Key);
                         break;
                     case "_xpath":
-                        // Process configuration on XPath rules used to extract this block
-                        // from HTML
-                        ProcessXPathRules(parsedJson, currentConfig);
+                    case "_xpaths":
+                        // Process configuration on XPath rules used to extract this block from HTML
+                        ProcessConfigKey(parsedJson, currentConfig.XPathRules, keyName: item.Key);
                         break;
-                    case "_transformations": // one or more transformations
-                        // Process configuration on how to clean/modify the values extracted 
-                        // from HTML
-                        ProcessTransformations(parsedJson, currentConfig);
-                        break;
-                    case "_transformation": // single transformation
-                        // Process configuration on how to clean/modify the values extracted 
-                        // from HTML
-                        ProcessTransformation(parsedJson, currentConfig);
+                    case "_transformation":
+                    case "_transformations":
+                        // Process configuration on how to clean/modify the values extracted from HTML
+                        ProcessTransformations(parsedJson, currentConfig, keyName: item.Key);
                         break;
                     case "_forceArray":
                         // Force the value of this item to be an array (true or false)
-                        ProcessForceArray(parsedJson, currentConfig);
+                        ProcessForceArray(parsedJson, currentConfig, keyName: item.Key);
                         break;
                     default:
                         // We assume all other keys in the JSON at this level are for actual HTML 
@@ -77,89 +80,57 @@ namespace OpenScraping.Config
 
         private static void ProcessConfigName(JObject parsedJson, ConfigSection currentConfig)
         {
-            var configNameKeyName = "_configName";
+            var keyName = "_configName";
 
-            if (parsedJson[configNameKeyName] != null && parsedJson[configNameKeyName].Type == JTokenType.String)
+            if (parsedJson[keyName] != null && parsedJson[keyName].Type == JTokenType.String)
             {
-                currentConfig.ConfigName = parsedJson[configNameKeyName].ToString();
+                currentConfig.ConfigName = parsedJson[keyName].ToString();
             }
         }
 
-        private static void ProcessUrlPatterns(JObject parsedJson, ConfigSection currentConfig)
+        private static void ProcessConfigKey(JObject parsedJson, ICollection<string> configItems, string keyName)
         {
-            var urlPatternsKeyName = "_urlPatterns";
-
-            if (parsedJson[urlPatternsKeyName] != null && parsedJson[urlPatternsKeyName].Type == JTokenType.Array)
+            if (parsedJson[keyName] != null)
             {
-                foreach (var urlPattern in parsedJson[urlPatternsKeyName])
+                if (parsedJson[keyName].Type == JTokenType.Array)
                 {
-                    currentConfig.UrlPatterns.Add(urlPattern.ToString());
-                }
-            }
-        }
-
-        private static void ProcessRemoveTags(JObject parsedJson, ConfigSection currentConfig)
-        {
-            var removeTagsKeyName = "_removeTags";
-
-            if (parsedJson[removeTagsKeyName] != null && parsedJson[removeTagsKeyName].Type == JTokenType.Array)
-            {
-                foreach (var removeTagPattern in parsedJson[removeTagsKeyName])
-                {
-                    currentConfig.RemoveTags.Add(removeTagPattern.ToString().ToLowerInvariant());
-                }
-            }
-        }
-
-        private static void ProcessXPathRules(JObject parsedJson, ConfigSection currentConfig)
-        {
-            var xPathKeyName = "_xpath";
-
-            if (parsedJson[xPathKeyName] != null)
-            {
-                if (parsedJson[xPathKeyName].Type == JTokenType.Array)
-                {
-                    foreach (var xPath in parsedJson[xPathKeyName])
+                    foreach (var urlPattern in parsedJson[keyName])
                     {
-                        currentConfig.XPathRules.Add(xPath.ToString());
+                        configItems.Add(urlPattern.ToString());
                     }
                 }
-                else if (parsedJson[xPathKeyName].Type == JTokenType.String)
+                else if (parsedJson[keyName].Type == JTokenType.String)
                 {
-                    currentConfig.XPathRules.Add(parsedJson[xPathKeyName].ToString());
+                    configItems.Add(parsedJson[keyName].ToString());
                 }
             }
         }
 
-        private static void ProcessTransformations(JObject parsedJson, ConfigSection currentConfig)
+        private static void ProcessTransformations(JObject parsedJson, ConfigSection currentConfig, string keyName)
         {
-            var transformationsKeyName = "_transformations";
-
-            if (parsedJson[transformationsKeyName] != null && parsedJson[transformationsKeyName].Type == JTokenType.Array)
+            if (parsedJson[keyName] != null)
             {
-                var transformations = parsedJson[transformationsKeyName];
-
-                foreach (var transformation in transformations)
+                if (parsedJson[keyName].Type == JTokenType.Array)
                 {
-                    if (transformation.Type == JTokenType.Object)
+                    var transformations = parsedJson[keyName];
+
+                    foreach (var transformation in transformations)
                     {
-                        ProcessTransformation(currentConfig, transformation);
-                    }
-                    else if (transformation.Type == JTokenType.String)
-                    {
-                        ProcessTransformation(currentConfig, TransformationConfigFromName(transformation.ToString()));
+                        if (transformation.Type == JTokenType.Object)
+                        {
+                            ProcessTransformation(currentConfig, transformation);
+                        }
+                        else if (transformation.Type == JTokenType.String)
+                        {
+                            ProcessTransformation(currentConfig, TransformationConfigFromName(transformation.ToString()));
+                        }
                     }
                 }
-            }
-        }
-
-        private static void ProcessTransformation(JObject parsedJson, ConfigSection currentConfig)
-        {
-            var transformationKeyName = "_transformation";
-
-            if (parsedJson[transformationKeyName] != null && parsedJson[transformationKeyName].Type == JTokenType.String)
-            {
-                ProcessTransformation(currentConfig, TransformationConfigFromName(parsedJson[transformationKeyName].ToString()));
+                else
+                {
+                    var transformation = parsedJson[keyName];
+                    ProcessTransformation(currentConfig, TransformationConfigFromName(transformation.ToString()));
+                }
             }
         }
 
@@ -200,15 +171,13 @@ namespace OpenScraping.Config
             }
         }
 
-        private static void ProcessForceArray(JObject parsedJson, ConfigSection currentConfig)
+        private static void ProcessForceArray(JObject parsedJson, ConfigSection currentConfig, string keyName)
         {
-            var forceArrayKeyName = "_forceArray";
-
-            if (parsedJson[forceArrayKeyName] != null)
+            if (parsedJson[keyName] != null)
             {
-                if (parsedJson[forceArrayKeyName].Type == JTokenType.Boolean)
+                if (parsedJson[keyName].Type == JTokenType.Boolean)
                 {
-                    currentConfig.ForceArray = ((JValue)parsedJson[forceArrayKeyName]).ToObject<bool>();
+                    currentConfig.ForceArray = ((JValue)parsedJson[keyName]).ToObject<bool>();
                 }
             }
         }
