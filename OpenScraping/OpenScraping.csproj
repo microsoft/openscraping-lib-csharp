@@ -8,13 +8,11 @@
     <PackageProjectUrl>https://github.com/Microsoft/openscraping-lib-csharp</PackageProjectUrl>
     <RepositoryType>https://github.com/Microsoft/openscraping-lib-csharp</RepositoryType>
     <PackageTags>html extraction scraping scraper parser parsing open scraping openscraping</PackageTags>
-    <PackageReleaseNotes>- Added support for _removeXPaths config key, which allows removing some child nodes based on xPath rules BEFORE we process the main parent node. Useful for example when extracting a news article that contains divs that we want to remove BEFORE we extract the body of an article.
-- Updated some dependencies like HtmlAgilityPack to the latest stable version.
-- Simplified reading configs and added support for specifying some config keys as either singular or plural, and setting their values to either a single value or an array.</PackageReleaseNotes>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
+    <PackageReleaseNotes>Added support for Regex transformation and ParseDateTransformation</PackageReleaseNotes>
+    <AssemblyVersion>1.3.0.0</AssemblyVersion>
+    <FileVersion>1.3.0.0</FileVersion>
     <PackageIconUrl>https://github.com/Microsoft/openscraping-lib-csharp/blob/master/logo.png?raw=true</PackageIconUrl>
-    <Version>1.2.0</Version>
+    <Version>1.3.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.8.10" />

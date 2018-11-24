@@ -6,13 +6,14 @@
 
 namespace Microsoft.Search.StructuredDataExtraction.Tests
 {
-    using System.Globalization;
-    using System.IO;
-    using OpenScraping.Config;
-    using OpenScraping;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using OpenScraping;
+    using OpenScraping.Config;
+    using System;
+    using System.Globalization;
+    using System.IO;
 
     [TestClass]
     public class StructuredDataExtractionTests
@@ -436,6 +437,38 @@ namespace Microsoft.Search.StructuredDataExtraction.Tests
             Assert.AreEqual("Article  title", parsedJson["title"].Value, "The extracted title is incorrect");
             Assert.AreEqual("Para1 content Para2 content", parsedJson["body"].Value, "The extracted body is incorrect");
 
+        }
+
+        [TestMethod]
+        public void RegexTest()
+        {
+            var configPath = Path.Combine("TestData", "regex_rules.json");
+            var config = StructuredDataConfig.ParseJsonFile(configPath);
+            var extractor = new StructuredDataExtractor(config);
+            var result = extractor.Extract(File.ReadAllText(Path.Combine("TestData", "article_with_date.html")));
+            var actualJson = JsonConvert.SerializeObject(result, Formatting.Indented);
+            var parsedActualJson = JObject.Parse(actualJson);
+
+            var expectedJsonPath = Path.Combine("TestData", "regex_expected_result.json");
+            var expectedJson = File.ReadAllText(expectedJsonPath);
+            var parsedExpectedJson = JObject.Parse(expectedJson);
+
+            Assert.IsTrue(JToken.DeepEquals(parsedActualJson, parsedExpectedJson));
+        }
+
+        [TestMethod]
+        public void ParseDateTest()
+        {
+            var configPath = Path.Combine("TestData", "parse_date_rules.json");
+            var config = StructuredDataConfig.ParseJsonFile(configPath);
+            var extractor = new StructuredDataExtractor(config);
+            var result = extractor.Extract(File.ReadAllText(Path.Combine("TestData", "article_with_date.html")));
+            var json = JsonConvert.SerializeObject(result, Formatting.Indented);
+            dynamic parsedJson = JsonConvert.DeserializeObject(json);
+
+            Assert.AreEqual(DateTime.Parse("2018-11-24T00:00:00"), parsedJson["parsedDateNoFormat"].Value);
+            Assert.AreEqual(DateTime.Parse("2011-12-30T00:00:00"), parsedJson["parsedDateWithFormat"].Value);
+            Assert.AreEqual(DateTime.Parse("2008-06-12T00:00:00"), parsedJson["parsedDateNoFormatWithProviderStyle"].Value);
         }
     }
 }

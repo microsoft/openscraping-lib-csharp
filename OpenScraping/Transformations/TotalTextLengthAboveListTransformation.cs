@@ -26,7 +26,7 @@ namespace OpenScraping.Transformations
                 var grandParentNode = logicalParents[logicalParents.Count - 2];
                 HtmlAgilityPack.HtmlNode parentNode = grandParentNode;
 
-                if (settings != null && settings["_startingXPath"] != null && ((JValue)settings["_startingXPath"]).Type == JTokenType.String)
+                if (settings != null && settings.ContainsKey("_startingXPath") && ((JValue)settings["_startingXPath"]).Type == JTokenType.String)
                 {
                     var startingXPath = ((JValue)settings["_startingXPath"]).ToObject<string>();
 

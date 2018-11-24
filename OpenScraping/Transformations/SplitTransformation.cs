@@ -24,12 +24,12 @@ namespace OpenScraping.Transformations
 
                 if (!string.IsNullOrWhiteSpace(text))
                 {
-                    if (settings != null && settings["_separator"] != null && ((JValue)settings["_separator"]).Type == JTokenType.String)
+                    if (settings != null && settings.ContainsKey("_separator") && ((JValue)settings["_separator"]).Type == JTokenType.String)
                     {
                         separator = settings["_separator"].ToString();
                     }
 
-                    if (settings != null && settings["_trim"] != null && ((JValue)settings["_trim"]).Type == JTokenType.Boolean)
+                    if (settings != null && settings.ContainsKey("_trim") && ((JValue)settings["_trim"]).Type == JTokenType.Boolean)
                     {
                         trim = (bool)((JValue)settings["_trim"]).Value;
                     }

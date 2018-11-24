@@ -1,0 +1,54 @@
+﻿{
+  "publishedDTNoGroupNameForceArrayFalse": "12-30-11",
+  "publishedDTWithGroupNameForceArrayFalse": "12-30-11",
+  "multiMatchNoGroupNameForceArrayFalse": {
+    "1": "111-111-111",
+    "2": "str.Street 1/1, City. 2017"
+  },
+  "multiMatchWithGroupNameForceArrayFalse": {
+    "phone": "111-111-111",
+    "address": "str.Street 1/1, City. 2017"
+  },
+  "publishedDTNoGroupNameForceArrayTrue": [
+    {
+      "1": [
+        "12 Juni 2008"
+      ]
+    }
+  ],
+  "publishedDTWithGroupNameForceArrayTrue": [
+    {
+      "date": [
+        "12 Juni 2008"
+      ]
+    }
+  ],
+  "multiMatchNoGroupNameForceArrayTrue": [
+    {
+      "1": [
+        "111-111-111"
+      ],
+      "2": [
+        "str.Street 1/1, City. 2017"
+      ]
+    }
+  ],
+  "multiMatchWithGroupNameForceArrayTrue": [
+    {
+      "phone": [
+        "111-111-111"
+      ],
+      "address": [
+        "str.Street 1/1, City. 2017"
+      ]
+    }
+  ],
+  "multiMatchWithSameGroupNameForceArrayTrue": [
+    {
+      "same_group": [
+        "111-111-111",
+        "str.Street 1/1, City. 2017"
+      ]
+    }
+  ]
+}
