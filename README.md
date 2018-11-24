@@ -164,3 +164,66 @@ RemoveExtraWhitespaceTransformation      | Replaces consecutive spaces with a si
 SplitTransformation                      | Splits the string into an array based on a separator. | [Here](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/TestData/support.office.com.json)
 TotalTextLengthAboveListTransformation   | Tries to determine the length of the text which is above an unordered or ordered HTML list. | [Here](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/TestData/answers.microsoft.com.json)
 TrimTransformation                       | Runs  [String.Trim()](https://msdn.microsoft.com/en-us/library/system.string.trim(v=vs.110).aspx) on the extracted text before it gets written to the JSON output. | 
+
+## Feature: Remove unwanted HTML tags and XPath nodes before extracting content
+
+Let's say you want to extract a news article but before the actual extraction you would like to remove some HTML nodes. You can do that in two ways. The first (deprecated) way is to use the the **\_removeTags** setting, where you can list names of HTML tags that need to be removed before we start processing the xPath rules. The second (better) way is setting the **\_removeXPaths** setting, which allows listing XPath rules to find nodes that we want to remove BEFORE we process the normal \_xpath extraction rules.
+
+Example HTML:
+```html
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Page title</title>
+</head>
+<body>
+    <h1>  Article  title    </h1>
+    <div id="primary">
+        <script>alert('test');</script>
+
+        <p>Para1     content</p>
+        <p>Para2   content</p>
+
+        <div id="comments">
+            <p>Comment1</p>
+            <p>Comment2</p>
+        </div>
+    </div>
+</body>
+</html>
+```
+
+JSON config:
+```javascript
+{
+  "_removeTags": [
+    "script"
+  ],
+  "title": {
+    "_xpath": "//h1",
+    "_transformations": [
+      "TrimTransformation"
+    ]
+  },
+  "body": {
+    "_removeXPaths": [
+      "./div[@id='comments']"
+    ],
+    "_xpath": "//div[@id='primary']",
+    "_transformations": [
+      "RemoveExtraWhitespaceTransformation"
+    ]
+  }
+}
+```
+
+Result:
+```javascript
+{
+  "title": "Article  title",
+  "body": "Para1 content Para2 content"
+}
+```
+```
