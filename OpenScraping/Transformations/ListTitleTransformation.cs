@@ -34,8 +34,10 @@ namespace OpenScraping.Transformations
             "a"
         };
 
-        public object Transform(Dictionary<string, object> settings, HtmlAgilityPack.HtmlNode node, List<HtmlAgilityPack.HtmlNode> logicalParents)
+        public object Transform(Dictionary<string, object> settings, HtmlNodeNavigator nodeNavigator, List<HtmlAgilityPack.HtmlNode> logicalParents)
         {
+            var node = nodeNavigator?.CurrentNode;
+
             HtmlAgilityPack.HtmlNode sibling = null;
             var level = 0;
             var maxLevel = 3;

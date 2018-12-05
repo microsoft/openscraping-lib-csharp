@@ -6,24 +6,22 @@
 
 namespace OpenScraping.Transformations
 {
+    using HtmlAgilityPack;
     using System.Collections.Generic;
 
     public class CastToIntegerTransformation : ITransformationFromHtml
     {
-        public object Transform(Dictionary<string, object> settings, HtmlAgilityPack.HtmlNode node, List<HtmlAgilityPack.HtmlNode> logicalParents)
+        public object Transform(Dictionary<string, object> settings, HtmlNodeNavigator nodeNavigator, List<HtmlAgilityPack.HtmlNode> logicalParents)
         {
-            if (node != null)
+            var text = nodeNavigator?.Value ?? nodeNavigator?.CurrentNode?.InnerText;
+
+            if (text != null)
             {
-                var text = node.InnerText;
+                int intVal;
 
-                if (text != null)
+                if (int.TryParse(text, out intVal))
                 {
-                    int intVal;
-
-                    if (int.TryParse(text, out intVal))
-                    {
-                        return intVal;
-                    }
+                    return intVal;
                 }
             }
 

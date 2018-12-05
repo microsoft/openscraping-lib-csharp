@@ -13,10 +13,12 @@ namespace OpenScraping.Transformations
 
     public class SplitTransformation : ITransformationFromHtml
     {
-        public object Transform(Dictionary<string, object> settings, HtmlAgilityPack.HtmlNode node, List<HtmlAgilityPack.HtmlNode> logicalParents)
+        public object Transform(Dictionary<string, object> settings, HtmlNodeNavigator nodeNavigator, List<HtmlAgilityPack.HtmlNode> logicalParents)
         {
             var separator = ",";
             var trim = false;
+
+            var node = nodeNavigator?.CurrentNode;
 
             if (node != null)
             {

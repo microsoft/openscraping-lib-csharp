@@ -7,10 +7,11 @@
 namespace OpenScraping.Transformations
 {
     using System.Collections.Generic;
+    using HtmlAgilityPack;
     using Newtonsoft.Json.Linq;
 
     public interface ITransformationFromHtml
     {
-        object Transform(Dictionary<string, object> settings, HtmlAgilityPack.HtmlNode node, List<HtmlAgilityPack.HtmlNode> logicalParents);
+        object Transform(Dictionary<string, object> settings, HtmlNodeNavigator nodeNavigator, List<HtmlAgilityPack.HtmlNode> logicalParents);
     }
 }

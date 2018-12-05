@@ -132,28 +132,28 @@ namespace OpenScraping
                         var newLogicalParents = logicalParents.GetRange(0, logicalParents.Count);
                         newLogicalParents.Add(parentNode);
 
-                        foreach (HtmlNodeNavigator node in nodes)
+                        foreach (HtmlNodeNavigator nodeNavigator in nodes)
                         {
-                            this.RemoveXPaths(config, node.CurrentNode);
+                            this.RemoveXPaths(config, nodeNavigator.CurrentNode);
 
                             if (config.Children != null && config.Children.Count > 0)
                             {
                                 var container = new JObject();
-                                this.ExtractChildren(config: config, parentNode: node.CurrentNode, container: container, logicalParents: newLogicalParents);
+                                this.ExtractChildren(config: config, parentNode: nodeNavigator.CurrentNode, container: container, logicalParents: newLogicalParents);
                                 containers.Add(container);
                             }
                             else if (config.Transformations != null && config.Transformations.Count > 0)
                             {
-                                var obj = this.RunTransformations(config.Transformations, node.CurrentNode, newLogicalParents);
+                                var obj = this.RunTransformations(config.Transformations, nodeNavigator, newLogicalParents);
 
                                 if (obj != null)
                                 {
                                     containers.Add(obj);
                                 }
                             }
-                            else if (node.Value != null)
+                            else if (nodeNavigator.Value != null)
                             {
-                                containers.Add(HtmlEntity.DeEntitize(node.Value).Trim());
+                                containers.Add(HtmlEntity.DeEntitize(nodeNavigator.Value).Trim());
                             }
                         }
                     }
@@ -208,7 +208,7 @@ namespace OpenScraping
             }
         }
 
-        private object RunTransformations(List<TransformationConfig> transformations, HtmlAgilityPack.HtmlNode node, List<HtmlAgilityPack.HtmlNode> logicalParents)
+        private object RunTransformations(List<TransformationConfig> transformations, HtmlNodeNavigator nodeNavigator, List<HtmlAgilityPack.HtmlNode> logicalParents)
         {
             object obj = null;
 
@@ -218,7 +218,7 @@ namespace OpenScraping
 
                 if (obj == null && this.transformationsFromHtml.ContainsKey(transformation.Type))
                 {
-                    obj = this.transformationsFromHtml[transformation.Type].Transform(settings, node, logicalParents);
+                    obj = this.transformationsFromHtml[transformation.Type].Transform(settings, nodeNavigator, logicalParents);
                 }
                 else if (obj != null && this.transformationsFromContainer.ContainsKey(transformation.Type))
                 {

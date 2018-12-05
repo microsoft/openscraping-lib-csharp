@@ -13,12 +13,12 @@ namespace OpenScraping.Transformations
 
     public class TotalTextLengthAboveListTransformation : ITransformationFromHtml
     {
-        public object Transform(Dictionary<string, object> settings, HtmlAgilityPack.HtmlNode node, List<HtmlAgilityPack.HtmlNode> logicalParents)
+        public object Transform(Dictionary<string, object> settings, HtmlNodeNavigator nodeNavigator, List<HtmlAgilityPack.HtmlNode> logicalParents)
         {
             var ret = new StringBuilder();
             var foundParent = false;
 
-            HtmlAgilityPack.HtmlNode currentNode = node;
+            var currentNode = nodeNavigator?.CurrentNode;
 
             if (logicalParents != null && logicalParents.Count >= 2)
             {

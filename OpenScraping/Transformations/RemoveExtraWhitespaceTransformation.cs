@@ -12,8 +12,10 @@ namespace OpenScraping.Transformations
 
     public class RemoveExtraWhitespaceTransformation : ITransformationFromHtml
     {
-        public object Transform(Dictionary<string, object> settings, HtmlAgilityPack.HtmlNode node, List<HtmlAgilityPack.HtmlNode> logicalParents)
+        public object Transform(Dictionary<string, object> settings, HtmlNodeNavigator nodeNavigator, List<HtmlAgilityPack.HtmlNode> logicalParents)
         {
+            var node = nodeNavigator?.CurrentNode;
+
             if (node != null)
             {
                 var text = node.InnerText;

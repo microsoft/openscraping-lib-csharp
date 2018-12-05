@@ -6,29 +6,27 @@
 
 namespace OpenScraping.Transformations
 {
+    using HtmlAgilityPack;
     using System;
     using System.Collections.Generic;
 
     public class AbbreviatedIntegerTranformation : ITransformationFromHtml
     {
-        public object Transform(Dictionary<string, object> settings, HtmlAgilityPack.HtmlNode node, List<HtmlAgilityPack.HtmlNode> logicalParents)
+        public object Transform(Dictionary<string, object> settings, HtmlNodeNavigator nodeNavigator, List<HtmlAgilityPack.HtmlNode> logicalParents)
         {
-            if (node != null)
+            var text = nodeNavigator?.Value ?? nodeNavigator?.CurrentNode?.InnerText;
+
+            if (text != null)
             {
-                var text = node.InnerText;
+                var parts = text.Split(new char[] { ' ' });
 
-                if (text != null)
+                foreach (var part in parts)
                 {
-                    var parts = text.Split(new char[] { ' ' });
+                    var number = this.ConvertAbbreviatedNumber(part);
 
-                    foreach (var part in parts)
+                    if (number.HasValue)
                     {
-                        var number = this.ConvertAbbreviatedNumber(part);
-
-                        if (number.HasValue)
-                        {
-                            return number.Value;
-                        }
+                        return number.Value;
                     }
                 }
             }

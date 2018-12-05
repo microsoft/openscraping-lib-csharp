@@ -470,5 +470,29 @@ namespace Microsoft.Search.StructuredDataExtraction.Tests
             Assert.AreEqual(DateTime.Parse("2011-12-30T00:00:00"), parsedJson["parsedDateWithFormat"].Value);
             Assert.AreEqual(DateTime.Parse("2008-06-12T00:00:00"), parsedJson["parsedDateNoFormatWithProviderStyle"].Value);
         }
+
+        [TestMethod]
+        public void CastToIntegerTest()
+        {
+            var html = "<meta property=\"width\" content=\"1200\">";
+
+            var configJson = @"
+            {
+                'width': {
+                    '_xpath': '/meta[@property=\'width\']/@content',
+                    '_transformation': 'CastToIntegerTransformation'
+                }
+            }
+            ";
+
+            var config = StructuredDataConfig.ParseJsonString(configJson);
+
+            var extractor = new StructuredDataExtractor(config);
+            var result = extractor.Extract(html);
+            var json = JsonConvert.SerializeObject(result, Formatting.Indented);
+            dynamic parsedJson = JsonConvert.DeserializeObject(json);
+
+            Assert.AreEqual(1200, parsedJson["width"].Value);
+        }
     }
 }
