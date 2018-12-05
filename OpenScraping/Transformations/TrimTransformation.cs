@@ -6,15 +6,17 @@
 
 namespace OpenScraping.Transformations
 {
+    using HtmlAgilityPack;
     using System.Collections.Generic;
 
     public class TrimTransformation : ITransformationFromHtml
     {
-        public object Transform(Dictionary<string, object> settings, HtmlAgilityPack.HtmlNode node, List<HtmlAgilityPack.HtmlNode> logicalParents)
+        public object Transform(Dictionary<string, object> settings, HtmlNodeNavigator nodeNavigator, List<HtmlAgilityPack.HtmlNode> logicalParents)
         {
-            if (node != null)
+            var text = nodeNavigator?.Value ?? nodeNavigator?.CurrentNode?.InnerText;
+
+            if (text != null)
             {
-                var text = node.InnerText;
                 return text.Trim();
             }
 

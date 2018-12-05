@@ -6,29 +6,27 @@
 
 namespace OpenScraping.Transformations
 {
+    using HtmlAgilityPack;
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
 
     public class ExtractIntegerTransformation : ITransformationFromHtml
     {
-        public object Transform(Dictionary<string, object> settings, HtmlAgilityPack.HtmlNode node, List<HtmlAgilityPack.HtmlNode> logicalParents)
+        public object Transform(Dictionary<string, object> settings, HtmlNodeNavigator nodeNavigator, List<HtmlAgilityPack.HtmlNode> logicalParents)
         {
-            if (node != null)
+            var text = nodeNavigator?.Value ?? nodeNavigator?.CurrentNode?.InnerText;
+
+            if (text != null)
             {
-                var text = node.InnerText;
+                var intStrMatch = Regex.Match(text, @"-?\d+");
 
-                if (text != null)
+                if (intStrMatch.Success && !string.IsNullOrEmpty(intStrMatch.Value))
                 {
-                    var intStrMatch = Regex.Match(text, @"-?\d+");
+                    int intVal;
 
-                    if (intStrMatch.Success && !string.IsNullOrEmpty(intStrMatch.Value))
+                    if (int.TryParse(intStrMatch.Value, out intVal))
                     {
-                        int intVal;
-
-                        if (int.TryParse(intStrMatch.Value, out intVal))
-                        {
-                            return intVal;
-                        }
+                        return intVal;
                     }
                 }
             }

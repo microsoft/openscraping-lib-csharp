@@ -6,6 +6,7 @@
 
 namespace OpenScraping.Transformations
 {
+    using HtmlAgilityPack;
     using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
@@ -24,11 +25,12 @@ namespace OpenScraping.Transformations
             return null;
         }
 
-        public object Transform(Dictionary<string, object> settings, HtmlAgilityPack.HtmlNode node, List<HtmlAgilityPack.HtmlNode> logicalParents)
+        public object Transform(Dictionary<string, object> settings, HtmlNodeNavigator nodeNavigator, List<HtmlAgilityPack.HtmlNode> logicalParents)
         {
-            if (node != null)
+            var rawDate = nodeNavigator?.Value ?? nodeNavigator?.CurrentNode?.InnerText;
+
+            if (rawDate != null)
             {
-                var rawDate = node.InnerText;
                 return ParseDate(settings, rawDate);
             }
 
