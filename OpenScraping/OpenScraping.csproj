@@ -12,7 +12,7 @@
     <AssemblyVersion>1.4.1.0</AssemblyVersion>
     <FileVersion>1.4.1.0</FileVersion>
     <PackageIconUrl>https://github.com/Microsoft/openscraping-lib-csharp/blob/master/logo.png?raw=true</PackageIconUrl>
-    <Version>1.4.0</Version>
+    <Version>1.4.1</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.8.10" />
