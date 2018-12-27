@@ -10,8 +10,22 @@ namespace OpenScraping.Transformations
     using System.Text.RegularExpressions;
     using HtmlAgilityPack;
 
-    public class RemoveExtraWhitespaceTransformation : ITransformationFromHtml
+    public class RemoveExtraWhitespaceTransformation : ITransformationFromObject, ITransformationFromHtml
     {
+        private Regex ExtraWhitespacesRegex = new Regex(@"\s\s+", RegexOptions.Compiled);
+
+        public object Transform(Dictionary<string, object> settings, object input)
+        {
+            if (input != null && input is string)
+            {
+                var text = (string)input;
+                text = ExtraWhitespacesRegex.Replace(text, " ");
+                return text;
+            }
+
+            return null;
+        }
+
         public object Transform(Dictionary<string, object> settings, HtmlNodeNavigator nodeNavigator, List<HtmlAgilityPack.HtmlNode> logicalParents)
         {
             var node = nodeNavigator?.CurrentNode;
@@ -23,7 +37,7 @@ namespace OpenScraping.Transformations
                 if (text != null)
                 {
                     text = HtmlEntity.DeEntitize(text).Trim();
-                    text = Regex.Replace(text, @"\s\s+", " ");
+                    text = ExtraWhitespacesRegex.Replace(text, " ");
                     return text;
                 }
             }
