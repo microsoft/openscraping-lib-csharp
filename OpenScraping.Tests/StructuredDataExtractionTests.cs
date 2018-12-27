@@ -614,5 +614,33 @@ namespace Microsoft.Search.StructuredDataExtraction.Tests
 
             Assert.AreEqual("A link with adjacent text.", parsedJson["text"].Value);
         }
+
+        [TestMethod]
+        public void RemoveExtraWhitespaceTransformationTest()
+        {
+            var html = "<html><body><div id='content'><a href=''>A link</a>with     adjacent text. &quot;the final frontier&quot;</div></body></html>";
+
+            var configJson = @"
+            {
+                'text': {
+                    '_xpath': '//div[@id=\'content\']',
+                    '_transformations': [
+                        'ExtractTextTransformation',
+                        'HtmlDecodeTransformation',
+                        'RemoveExtraWhitespaceTransformation'
+                    ]
+                }
+            }
+            ";
+
+            var config = StructuredDataConfig.ParseJsonString(configJson);
+
+            var extractor = new StructuredDataExtractor(config);
+            var result = extractor.Extract(html);
+            var json = JsonConvert.SerializeObject(result, Formatting.Indented);
+            dynamic parsedJson = JsonConvert.DeserializeObject(json);
+
+            Assert.AreEqual("A link with adjacent text. \"the final frontier\"", parsedJson["text"].Value);
+        }
     }
 }
