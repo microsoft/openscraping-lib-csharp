@@ -166,6 +166,11 @@ TotalTextLengthAboveListTransformation   | Tries to determine the length of the 
 TrimTransformation                       | Runs  [String.Trim()](https://msdn.microsoft.com/en-us/library/system.string.trim(v=vs.110).aspx) on the extracted text before it gets written to the JSON output. | [Here](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/TestData/article_with_comments_div.json)
 RegexTransformation                       | Matches text with regular expressions | [Here](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/TestData/regex_rules.json)
 ParseDateTransformation                       | Converts text to date | [Here](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/TestData/parse_date_rules.json)
+HtmlDecode                       | Decodes HTML with WebUtility.HtmlDecode | [Here](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/StructuredDataExtractionTests.cs)
+HtmlEncode                       | Encodes HTML with WebUtility.HtmlEncode | [Here](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/StructuredDataExtractionTests.cs)
+UrlDecode                       | Decodes text with WebUtility.UrlDecode | [Here](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/StructuredDataExtractionTests.cs)
+UrlEncode                       | Encodes text with WebUtility.UrlEncode | [Here](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/StructuredDataExtractionTests.cs)
+ExtractTextTransformation                       | A better way to extract text if you want to preserve white space between adjacent text nodes. For example, if a text node immediately follows a link, then this transformation outputs the extracted text with a space between the anchor text and the adjacent text. Useful when extracting large text articles. | [Here](https://github.com/Microsoft/openscraping-lib-csharp/blob/master/OpenScraping.Tests/StructuredDataExtractionTests.cs)
 
 ### Writing custom transformations
 
