@@ -494,5 +494,125 @@ namespace Microsoft.Search.StructuredDataExtraction.Tests
 
             Assert.AreEqual(1200, parsedJson["width"].Value);
         }
+
+        [TestMethod]
+        public void HtmlDecodeTest()
+        {
+            var html = "<html><body><div id='content'>&lt;a href=''&gt;A link&lt;/a&gt;.</div></body></html>";
+
+            var configJson = @"
+            {
+                'text': {
+                    '_xpath': '//div[@id=\'content\']',
+                    '_transformation': 'HtmlDecodeTransformation'
+                }
+            }
+            ";
+
+            var config = StructuredDataConfig.ParseJsonString(configJson);
+
+            var extractor = new StructuredDataExtractor(config);
+            var result = extractor.Extract(html);
+            var json = JsonConvert.SerializeObject(result, Formatting.Indented);
+            dynamic parsedJson = JsonConvert.DeserializeObject(json);
+
+            Assert.AreEqual("<a href=''>A link</a>.", parsedJson["text"].Value);
+        }
+
+        [TestMethod]
+        public void HtmlEncodeTest()
+        {
+            var html = "<html><body><div id='content'>a < b</div></body></html>";
+
+            var configJson = @"
+            {
+                'text': {
+                    '_xpath': '//div[@id=\'content\']',
+                    '_transformation': 'HtmlEncodeTransformation'
+                }
+            }
+            ";
+
+            var config = StructuredDataConfig.ParseJsonString(configJson);
+
+            var extractor = new StructuredDataExtractor(config);
+            var result = extractor.Extract(html);
+            var json = JsonConvert.SerializeObject(result, Formatting.Indented);
+            dynamic parsedJson = JsonConvert.DeserializeObject(json);
+
+            Assert.AreEqual("a &lt; b", parsedJson["text"].Value);
+        }
+
+        [TestMethod]
+        public void UrlDecodeTest()
+        {
+            var html = "<html><body><div id='content'><a href='https://www.bing.com/search?q=hello+world'></a></div></body></html>";
+
+            var configJson = @"
+            {
+                'text': {
+                    '_xpath': '//div[@id=\'content\']/a/@href',
+                    '_transformation': 'UrlDecodeTransformation'
+                }
+            }
+            ";
+
+            var config = StructuredDataConfig.ParseJsonString(configJson);
+
+            var extractor = new StructuredDataExtractor(config);
+            var result = extractor.Extract(html);
+            var json = JsonConvert.SerializeObject(result, Formatting.Indented);
+            dynamic parsedJson = JsonConvert.DeserializeObject(json);
+
+            Assert.AreEqual("https://www.bing.com/search?q=hello world", parsedJson["text"].Value);
+        }
+
+        [TestMethod]
+        public void UrlEncodeTest()
+        {
+            var html = "<html><body><div id='content'><a href='hello world'></a></div></body></html>";
+
+            var configJson = @"
+            {
+                'text': {
+                    '_xpath': '//div[@id=\'content\']/a/@href',
+                    '_transformation': 'UrlEncodeTransformation'
+                }
+            }
+            ";
+
+            var config = StructuredDataConfig.ParseJsonString(configJson);
+
+            var extractor = new StructuredDataExtractor(config);
+            var result = extractor.Extract(html);
+            var json = JsonConvert.SerializeObject(result, Formatting.Indented);
+            dynamic parsedJson = JsonConvert.DeserializeObject(json);
+
+            Assert.AreEqual("hello+world", parsedJson["text"].Value);
+        }
+
+        [TestMethod]
+        public void ExtractTextTest()
+        {
+            var html = "<html><body><div id='content'><a href=''>A link</a>with adjacent text.</div></body></html>";
+
+            var configJson = @"
+            {
+                'text': {
+                    '_xpath': '//div[@id=\'content\']',
+                    '_transformation': 'ExtractTextTransformation'
+                }
+            }
+            ";
+
+            var config = StructuredDataConfig.ParseJsonString(configJson);
+
+            var extractor = new StructuredDataExtractor(config);
+            var result = extractor.Extract(html);
+            var json = JsonConvert.SerializeObject(result, Formatting.Indented);
+            dynamic parsedJson = JsonConvert.DeserializeObject(json);
+
+            Assert.AreEqual("A link with adjacent text.", parsedJson["text"].Value);
+        }
     }
 }

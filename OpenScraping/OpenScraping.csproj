@@ -8,11 +8,11 @@
     <PackageProjectUrl>https://github.com/Microsoft/openscraping-lib-csharp</PackageProjectUrl>
     <RepositoryType>https://github.com/Microsoft/openscraping-lib-csharp</RepositoryType>
     <PackageTags>html extraction scraping scraper parser parsing open scraping openscraping</PackageTags>
-    <PackageReleaseNotes>Fixed issue where transformations were not running if xPath was selecting an @ attribute. The fix required introducing a breaking change in the ITransformationFromHtml transformation interface.</PackageReleaseNotes>
-    <AssemblyVersion>1.4.0.0</AssemblyVersion>
-    <FileVersion>1.4.0.0</FileVersion>
+    <PackageReleaseNotes>Added ExtractTextTransformation, HrmlDecodeTransformation, HtmlEncodeTransformation, UrlDecodeTransformation, UrlDecodeTransformation</PackageReleaseNotes>
+    <AssemblyVersion>1.4.1.0</AssemblyVersion>
+    <FileVersion>1.4.1.0</FileVersion>
     <PackageIconUrl>https://github.com/Microsoft/openscraping-lib-csharp/blob/master/logo.png?raw=true</PackageIconUrl>
-    <Version>1.4.0</Version>
+    <Version>1.4.1</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.8.10" />

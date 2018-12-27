@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="TrimTransformation.cs" company="Microsoft">
+// <copyright file="HtmlEncodeTransformation.cs" company="Microsoft">
 // Copyright (c) Microsoft. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -8,15 +8,16 @@ namespace OpenScraping.Transformations
 {
     using HtmlAgilityPack;
     using System.Collections.Generic;
+    using System.Net;
 
-    public class TrimTransformation : ITransformationFromObject, ITransformationFromHtml
+    public class HtmlEncodeTransformation : ITransformationFromObject, ITransformationFromHtml
     {
         public object Transform(Dictionary<string, object> settings, object input)
         {
             if (input != null && input is string)
             {
                 var text = (string)input;
-                return text.Trim();
+                return WebUtility.HtmlEncode(text);
             }
 
             return null;
@@ -28,7 +29,7 @@ namespace OpenScraping.Transformations
 
             if (text != null)
             {
-                return text.Trim();
+                return WebUtility.HtmlEncode(text);
             }
 
             return null;
